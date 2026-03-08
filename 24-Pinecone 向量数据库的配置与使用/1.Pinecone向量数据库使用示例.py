@@ -11,7 +11,19 @@ from langchain_pinecone import PineconeVectorStore
 
 dotenv.load_dotenv()
 
-embedding = OpenAIEmbeddings(model="text-embedding-3-small")
+embeddings = OpenAIEmbeddings(
+
+    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+
+    model="text-embedding-v4",
+
+    api_key="sk-3927d686315447078d6d8ef4e7ac5b9d",
+
+    # 添加额外的配置以兼容阿里云API
+
+    check_embedding_ctx_length=False
+
+    )
 
 texts: list = [
     "笨笨是一只很喜欢睡觉的猫咪",
@@ -37,7 +49,7 @@ metadatas: list = [
     {"page": 9},
     {"page": 10},
 ]
-db = PineconeVectorStore(index_name="llmops", embedding=embedding, namespace="dataset")
+db = PineconeVectorStore(index_name="llmops", embedding=embeddings, namespace="dataset")
 # db.add_texts(texts, metadatas, namespace="dataset")
 
 query = "我养了一只猫，叫笨笨"

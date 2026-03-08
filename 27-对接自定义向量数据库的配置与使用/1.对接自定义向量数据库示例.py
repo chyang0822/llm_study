@@ -108,7 +108,19 @@ metadatas = [
     {"page": 9},
     {"page": 10},
 ]
-embedding = OpenAIEmbeddings(model="text-embedding-3-small")
+embedding = OpenAIEmbeddings(
+
+    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+
+    model="text-embedding-v4",
+
+    api_key="sk-3927d686315447078d6d8ef4e7ac5b9d",
+
+    # 添加额外的配置以兼容阿里云API
+
+    check_embedding_ctx_length=False
+
+    )
 
 # 2.构建自定义向量数据库
 db = MemoryVectorStore(embedding=embedding)
