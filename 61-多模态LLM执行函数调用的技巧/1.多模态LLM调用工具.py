@@ -13,7 +13,7 @@ import dotenv
 import requests
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.pydantic_v1 import Field, BaseModel
+from pydantic import Field, BaseModel
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.tools import BaseTool
 from langchain_openai import ChatOpenAI

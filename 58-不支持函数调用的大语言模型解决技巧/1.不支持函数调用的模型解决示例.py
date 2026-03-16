@@ -15,7 +15,7 @@ from langchain_community.tools import GoogleSerperRun
 from langchain_community.utilities import GoogleSerperAPIWrapper
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.pydantic_v1 import Field, BaseModel
+from pydantic import Field, BaseModel
 from langchain_core.runnables import RunnableConfig, RunnablePassthrough
 from langchain_core.tools import BaseTool, render_text_description_and_args
 from langchain_openai import ChatOpenAI
