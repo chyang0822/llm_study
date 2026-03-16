@@ -29,7 +29,11 @@ def try_except_tool(tool_args: dict, config: RunnableConfig) -> Any:
 
 
 # 1.创建大语言模型并绑定工具
-llm = ChatOpenAI(model="gpt-3.5-turbo-16k", temperature=0)
+llm = ChatOpenAI(
+    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+    model="qwen2.5-14b-instruct-1m",
+    api_key="sk-3927d686315447078d6d8ef4e7ac5b9d",
+)
 llm_with_tools = llm.bind_tools([complex_tool])
 
 # 2.创建链并执行工具

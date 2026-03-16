@@ -33,8 +33,8 @@ class GoogleSerperArgsSchema(BaseModel):
 
 class GaodeWeatherTool(BaseTool):
     """根据传入的城市名查询天气"""
-    name = "gaode_weather"
-    description = "当你想询问天气或与天气相关的问题时的工具。"
+    name:str = "gaode_weather"
+    description:str = "当你想询问天气或与天气相关的问题时的工具。"
     args_schema: Type[BaseModel] = GaodeWeatherArgsSchema
 
     def _run(self, *args: Any, **kwargs: Any) -> str:
@@ -107,7 +107,12 @@ prompt = ChatPromptTemplate.from_messages([
 ])
 
 # 3.创建大语言模型并绑定工具
-llm = ChatOpenAI(model="gpt-4o")
+# 采用国内阿里大模型
+llm = ChatOpenAI(
+    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+    model="qwen2.5-14b-instruct-1m",
+    api_key="sk-3927d686315447078d6d8ef4e7ac5b9d",
+)
 llm_with_tool = llm.bind_tools(tools=tools)
 
 # 4.创建链应用

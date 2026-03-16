@@ -20,7 +20,12 @@ class QAExtra(BaseModel):
     answer: str = Field(description="假设性问题对应的答案")
 
 
-llm = ChatOpenAI(model="gpt-4o")
+# llm = ChatOpenAI(model="gpt-4o")
+llm = ChatOpenAI(
+    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+    model="qwen2.5-14b-instruct-1m",
+    api_key="sk-3927d686315447078d6d8ef4e7ac5b9d",
+)
 structured_llm = llm.with_structured_output(QAExtra, method="json_mode")
 
 prompt = ChatPromptTemplate.from_messages([

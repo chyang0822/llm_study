@@ -33,8 +33,8 @@ class GoogleSerperArgsSchema(BaseModel):
 
 class GaodeWeatherTool(BaseTool):
     """根据传入的城市名查询天气"""
-    name = "gaode_weather"
-    description = "当你想询问天气或与天气相关的问题时的工具。"
+    name:str = "gaode_weather"
+    description:str = "当你想询问天气或与天气相关的问题时的工具。"
     args_schema: Type[BaseModel] = GaodeWeatherArgsSchema
 
     def _run(self, *args: Any, **kwargs: Any) -> str:
@@ -131,7 +131,11 @@ prompt = ChatPromptTemplate.from_messages([
     ("human", "{query}")
 ]).partial(rendered_tools=render_text_description_and_args(tools))
 
-llm = ChatOpenAI(model="gpt-3.5-turbo-16k", temperature=0)
+llm = ChatOpenAI(
+    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+    model="qwen2.5-14b-instruct-1m",
+    api_key="sk-3927d686315447078d6d8ef4e7ac5b9d",
+)
 
 chain = prompt | llm | JsonOutputParser() | RunnablePassthrough.assign(output=invoke_tool)
 
