@@ -72,7 +72,11 @@ Question: {input}
 ])
 
 # 3.创建大语言模型
-llm = ChatOpenAI(model="gpt-4o-mini")
+llm = ChatOpenAI(
+    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+    model="qwen2.5-14b-instruct-1m",
+    api_key="sk-3927d686315447078d6d8ef4e7ac5b9d",
+)
 
 # 4.创建agent与agent执行者
 agent = create_xml_agent(
