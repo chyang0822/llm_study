@@ -14,7 +14,12 @@ from langgraph.graph.message import add_messages
 
 dotenv.load_dotenv()
 
-llm = ChatOpenAI(model="gpt-4o-mini")
+# llm = ChatOpenAI(model="gpt-4o-mini")
+llm = ChatOpenAI(
+    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+    model="qwen2.5-14b-instruct-1m",
+    api_key="sk-3927d686315447078d6d8ef4e7ac5b9d",
+)
 
 
 # 1.创建状态图，并使用GraphState作为状态数据
@@ -24,7 +29,7 @@ class State(TypedDict):
     use_name: str
 
 
-def chatbot(state: State, config: dict) -> Any:
+def chatbot(state: State) -> Any:
     """聊天机器人节点，使用大语言模型根据传递的消息列表生成内容"""
     ai_message = llm.invoke(state["messages"])
     return {"messages": [ai_message], "use_name": "chatbot"}

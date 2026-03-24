@@ -12,7 +12,7 @@ from langchain_community.tools.openai_dalle_image_generation import OpenAIDALLEI
 from langchain_community.utilities import GoogleSerperAPIWrapper
 from langchain_community.utilities.dalle_image_generator import DallEAPIWrapper
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.pydantic_v1 import BaseModel, Field
+from pydantic import BaseModel, Field
 from langchain_openai import ChatOpenAI
 
 dotenv.load_dotenv()
@@ -53,7 +53,11 @@ prompt = ChatPromptTemplate.from_messages([
 ])
 
 # 3.创建大语言模型
-llm = ChatOpenAI(model="gpt-4o-mini")
+llm = ChatOpenAI(
+    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+    model="qwen2.5-14b-instruct-1m",
+    api_key="sk-3927d686315447078d6d8ef4e7ac5b9d",
+)
 
 # 4.创建agent与agent执行者
 agent = create_tool_calling_agent(

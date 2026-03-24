@@ -5,13 +5,19 @@
 @Author  : thezehui@gmail.com
 @File    : 1.DuckDuckGo搜索.py
 """
-from langchain_community.tools import DuckDuckGoSearchRun
+import dotenv
 
-search = DuckDuckGoSearchRun(description="xxx")
+dotenv.load_dotenv()
 
-print(search.invoke("LangChain的最新版本是什么?"))
+# DuckDuckGo 在国内服务器无法访问，改用 Tavily 搜索
+# 需要先在 https://tavily.com 注册获取免费 API key
+# 并在 .env 文件中设置 TAVILY_API_KEY=your-key
+from langchain_tavily import TavilySearch
+
+search = TavilySearch(max_results=3)
+result = search.invoke("LangChain的最新版本是什么?")
+print(result)
 print("名字：", search.name)
 print("描述：", search.description)
 print("参数：", search.args)
 print("是否直接返回：", search.return_direct)
-# print(convert_to_openai_tool(search))

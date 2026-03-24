@@ -8,7 +8,7 @@
 from langchain_community.document_loaders import TextLoader
 
 # 1.构建加载器
-loader = TextLoader("./电商产品数据.txt", encoding="utf-8")
+loader = TextLoader("./28-Document 组件与文档加载器组件的使用/电商产品数据.txt", encoding="utf-8")
 
 # 2.加载数据
 documents = loader.load()

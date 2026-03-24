@@ -6,9 +6,10 @@
 @File    : 2.trim_messages修剪消息.py
 """
 import dotenv
-from langchain_core.messages import HumanMessage, AIMessage, trim_messages
+from langchain_core.messages import HumanMessage, AIMessage, trim_messages, BaseMessage
 from langchain_openai import ChatOpenAI
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from typing import List
 
 dotenv.load_dotenv()
 
@@ -27,12 +28,32 @@ messages = [
     ),
 ]
 
-llm = ChatOpenAI(model="gpt-4o-mini")
+llm = ChatOpenAI(
+    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+    model="qwen2.5-14b-instruct-1m",
+    api_key="sk-3927d686315447078d6d8ef4e7ac5b9d",
+)
+
+
+def token_counter(messages: List[BaseMessage]) -> int:
+    """自定义 token 计数函数，适用于 qwen 等不支持 tiktoken 的模型
+    中文字符约 1~2 token，英文约 0.25 token，此处用字符数 / 2 粗略估算
+    """
+    total = 0
+    for msg in messages:
+        if isinstance(msg.content, str):
+            total += len(msg.content)
+        elif isinstance(msg.content, list):
+            for block in msg.content:
+                if isinstance(block, dict) and "text" in block:
+                    total += len(block["text"])
+    return total // 2
+
 
 update_messages = trim_messages(
     messages,
     max_tokens=80,
-    token_counter=llm,
+    token_counter=token_counter,
     strategy="first",
     end_on="human",
     allow_partial=False,

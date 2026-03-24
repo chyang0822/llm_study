@@ -10,7 +10,7 @@ from langchain.agents import create_react_agent, AgentExecutor
 from langchain_community.tools import GoogleSerperRun
 from langchain_community.utilities import GoogleSerperAPIWrapper
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.pydantic_v1 import BaseModel, Field
+from pydantic import BaseModel, Field
 from langchain_core.tools import render_text_description_and_args
 from langchain_openai import ChatOpenAI
 
@@ -53,7 +53,12 @@ prompt = ChatPromptTemplate.from_template(
 )
 
 # 3.创建大语言模型与智能体
-llm = ChatOpenAI(model="gpt-4o", temperature=0)
+# llm = ChatOpenAI(model="gpt-4o", temperature=0)
+llm = ChatOpenAI(
+    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+    model="qwen2.5-14b-instruct-1m",
+    api_key="sk-3927d686315447078d6d8ef4e7ac5b9d",
+)
 agent = create_react_agent(
     llm=llm,
     prompt=prompt,

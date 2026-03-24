@@ -14,7 +14,11 @@ dotenv.load_dotenv()
 
 dalle = OpenAIDALLEImageGenerationTool(api_wrapper=DallEAPIWrapper(model="dall-e-3"))
 
-llm = ChatOpenAI(model="gpt-4o")
+llm = ChatOpenAI(
+    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+    model="qwen2.5-14b-instruct-1m",
+    api_key="sk-3927d686315447078d6d8ef4e7ac5b9d",
+)
 llm_with_tools = llm.bind_tools([dalle], tool_choice="openai_dalle")
 
 chain = llm_with_tools | (lambda msg: msg.tool_calls[0]["args"]) | dalle

@@ -15,7 +15,7 @@ from langchain_community.document_loaders import (
 # word_loader = UnstructuredWordDocumentLoader("./喵喵.docx")
 # documents = word_loader.load()
 
-ppt_loader = UnstructuredPowerPointLoader("./章节介绍.pptx")
+ppt_loader = UnstructuredPowerPointLoader("./29-LangChain内置文档加载器使用技巧/章节介绍.pptx")
 documents = ppt_loader.load()
 
 print(documents)

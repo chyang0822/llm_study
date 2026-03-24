@@ -7,7 +7,7 @@
 """
 from langchain_community.document_loaders import UnstructuredMarkdownLoader
 
-loader = UnstructuredMarkdownLoader("./项目API资料.md")
+loader = UnstructuredMarkdownLoader("./29-LangChain内置文档加载器使用技巧/项目API资料.md")
 documents = loader.load()
 
 print(documents)

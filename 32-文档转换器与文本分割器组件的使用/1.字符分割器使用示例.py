@@ -9,7 +9,7 @@ from langchain_community.document_loaders import UnstructuredMarkdownLoader
 from langchain_text_splitters import CharacterTextSplitter
 
 # 1.加载对应的文档
-loader = UnstructuredMarkdownLoader("./项目API文档.md")
+loader = UnstructuredMarkdownLoader("./32-文档转换器与文本分割器组件的使用/项目API文档.md")
 documents = loader.load()
 
 # 2.创建文本分割器
